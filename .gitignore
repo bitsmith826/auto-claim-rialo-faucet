@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment & Private Files
+.env
+.env.local
+wallet.txt
+
+# OS Metadata
+Thumbs.db
+.DS_Store

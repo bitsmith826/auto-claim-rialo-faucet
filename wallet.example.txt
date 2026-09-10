@@ -1,0 +1,5 @@
+# Masukkan daftar Public Key Wallet Rialo Anda di sini (1 baris = 1 wallet)
+# Contoh:
+7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
+9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v
