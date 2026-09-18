@@ -42,7 +42,7 @@ Skrip otomatisasi klaim airdrop testnet Rialo Faucet menggunakan arsitektur **Mu
 
 1. **Clone repository ini:**
    ```bash
-   git clone https://github.com/USERNAME/auto-claim-rialo-faucet.git
+   git clone https://github.com/bitsmith826/auto-claim-rialo-faucet.git
    cd auto-claim-rialo-faucet
    ```
 
