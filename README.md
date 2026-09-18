@@ -1,20 +1,51 @@
-# 🚀 Rialo Faucet Auto Claim (Multi-Provider SOCKS5 Paralel)
+# 🚀 Rialo Faucet Auto Claim (Multi-Wallet Concurrent & SOCKS5 Rotation)
 
-Skrip otomatisasi klaim airdrop testnet Rialo Faucet menggunakan arsitektur **Multi-Provider SOCKS5 Paralel**. Mengambil puluhan ribu proxy SOCKS5 gratis terupdate secara otomatis dan mengeksekusi klaim multi-wallet secara simultan.
+Skrip otomatisasi klaim airdrop testnet Rialo Faucet dengan arsitektur **Multi-Wallet Concurrent** dan **Rotasi 12 Provider SOCKS5**. Mengambil proxy SOCKS5 gratis terupdate secara otomatis dan mengeksekusi klaim seluruh wallet secara simultan di setiap ronde dengan log terminal yang bersih, rapi, dan mudah dipantau.
 
 ---
 
 ## ✨ Fitur Utama
 
-- **⚡ 12 Provider SOCKS5 Paralel**: Menjalankan 12 scraper & endpoint proxy independen secara bersamaan tanpa saling menghambat.
-- **🛡️ 100% SOCKS5 Murni**: Dilengkapi smart validator dan regex filter untuk membersihkan protokol non-SOCKS5 atau format teks kotor.
-- **👛 Multi-Wallet via `wallet.txt`**: Cukup masukkan daftar alamat wallet (1 baris per wallet).
-- **🎨 Tampilan CLI Bersih & Berwarna**: Dilengkapi status badge berkode warna ANSI (`SUCCESS`, `COOLDOWN`, `FAILED`, `SCRAPER`, `BATCH`) dan timestamp.
-- **🔒 Anti-Crash & Anti-Hang Guard**: Dilengkapi hard timeout 8 detik per request dan global handler agar script tetap berjalan stabil 24/7.
+- **⚡ Klaim Multi-Wallet Konkuren (Paralel)**: Seluruh wallet di `wallet.txt` diproses secara serentak (*concurrent*) di setiap ronde menggunakan `Promise.all`, menghemat waktu secara drastis tanpa perlu antrean lambat.
+- **🔄 Rotasi 12 Provider SOCKS5**: Mengambil puluhan ribu proxy SOCKS5 murni secara bergantian dari 12 provider terpercaya di setiap putaran ronde.
+- **🤫 Smart Silent Retry (Bebas Spam Error)**: Kegagalan proxy gratis (timeout / refused) ditangani otomatis dengan 1x *retry* hening di balik layar, menjaga terminal tetap bersih dari spam log error.
+- **🎨 Tampilan CLI Presisi & Box Header**: Tampilan pembuka berbingkai kotak presisi (*box header*) dan tag status terstandar berkode warna ANSI (`SUCCESS`, `COOLDOWN`, `FAILED`, `SCRAPER`, `BATCH`).
+- **📊 Ringkasan Batch Otomatis**: Setiap ronde selesai, bot menampilkan rekapitulasi instan jumlah wallet yang berhasil, terkena cooldown, dan gagal.
+- **🔒 Anti-Hang Guard**: Dilengkapi batas timeout ketat (7-8 detik) dan penanganan unhandled socket agar script tetap berjalan stabil 24/7.
 
 ---
 
-## 🌐 Daftar Sumber Proxy SOCKS5
+## 🖥️ Contoh Tampilan Terminal
+
+```text
+╔══════════════════════════════════════════════════════════════╗
+║                 RIALO FAUCET AUTO CLAIM BOT                  ║
+║          Multi-Wallet Auto Claim with SOCKS5 Proxy           ║
+╠══════════════════════════════════════════════════════════════╣
+║ Network : Rialo Testnet (Chain ID: 5042)                     ║
+║ Wallets : 10 Wallet terdaftar di wallet.txt                  ║
+║ Mode    : Konkuren (Paralel) - Semua wallet jalan serentak   ║
+║ Sumber  : 12 Provider SOCKS5 (Rotasi per ronde)              ║
+╚══════════════════════════════════════════════════════════════╝
+
+─ [ RONDE #1 • Monosans ] ──────────────────────────────────────
+[18:30:15] [ SCRAPER  ] Mengambil proxy dari Monosans...
+  ├─ Ditemukan : 3,450 proxy SOCKS5
+  └─ Status    : Memproses 10 wallet secara KONKUREN (Paralel)...
+
+  [ SUCCESS  ] [W-01] 7xKX...gAsU Tx: 0x4f8a...9c1b (Total Sukses: 1)
+  [ COOLDOWN ] [W-02] 9WzD...AWWM Faucet Rate Limit / Cooldown
+  [ SUCCESS  ] [W-03] EPjF...TDt1 Tx: 0x12dc...8e4a (Total Sukses: 2)
+
+────────────────────────────────────────────────────────────────
+[18:30:23] [  BATCH   ] Ronde #1 Selesai: 2 Sukses | 1 Cooldown | 0 Gagal (Total Sukses Akumulasi: 2)
+────────────────────────────────────────────────────────────────
+Jeda 5s sebelum ronde berikutnya...
+```
+
+---
+
+## 🌐 Daftar 12 Sumber Proxy SOCKS5
 
 1. **Monosans SOCKS5** *(Hourly Verified)*
 2. **ProxyScrape API v4**
@@ -52,11 +83,11 @@ Skrip otomatisasi klaim airdrop testnet Rialo Faucet menggunakan arsitektur **Mu
    ```
 
 3. **Siapkan file `wallet.txt`:**
-   Buat file bernama `wallet.txt` (atau copy dari `wallet.example.txt`):
+   Salin contoh format:
    ```bash
    cp wallet.example.txt wallet.txt
    ```
-   Buka `wallet.txt` dan masukkan alamat public key wallet Anda (1 baris = 1 wallet):
+   Buka `wallet.txt` dan masukkan alamat public key wallet Anda (1 baris per wallet):
    ```text
    7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
    9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
